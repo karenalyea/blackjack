@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF8">
+<title>Play Your Hand</title>
+</head>
+<body>
+
+<h1>Twenty-One</h1>
+
+<h2>Dealer Hand</h2>
+
+
+{{#game.showDealerCards}}
+	{{#game.dealerHand.cards}}
+		<div>{{ face }} of {{ suit }}  </div>
+	{{/game.dealerHand.cards }}
+		<div>Dealer Total {{ game.dealerTotal }}</div>
+{{/game.showDealerCards}}
+
+{{#game.dealerBust}}
+	<h4>dealer BUST!</h4>
+{{/game.dealerBust}}
+
+<h2>Player hand</h2>
+	
+{{#game.playerHand.cards}}
+	<div>{{ face }} of {{ suit }} </div>
+{{/game.playerHand.cards}}
+
+<div>Player Total {{ game.playerTotal }}</div>
+<div>You have ${{ game.cashOnHand }}</div>
+
+{{#game.playerBust}}
+	<h4>BUST! You Lose</h4>
+{{/game.playerBust}}
+
+
+{{#game.showPlayerButtons}}
+
+	<form method="post" action="/hit">
+		<button>Hit me</button>
+	</form>
+	<form method="post" action="/stand">
+		<button>Stand</button>
+	</form>
+		
+{{/game.showPlayerButtons}}
+
+{{^game.showPlayerButtons}}
+{{#game.outOfMoney}}
+	<p>You are a loser and out of money</p>
+	<p>Please visit one of our ATMs conveniently located in our lobby to get more money</p>
+{{/game.outOfMoney}}
+{{/game.showPlayerButtons}}
+	
+{{^game.outOfMoney}}
+	{{^game.showPlayerButtons}}
+			<form method="post" action="/bet">
+			<p>Enter new bet amount</p>
+			<input type="number" required name="bet">
+			<button>Redeal</button>
+		</form>
+	{{/game.showPlayerButtons}}
+{{/game.outOfMoney}}
+
+
+
+
+</body>
+</html>

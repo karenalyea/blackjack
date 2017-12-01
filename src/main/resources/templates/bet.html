@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF8">
+<title>Make Your Bet</title>
+</head>
+<body>
+
+<div>You have ${{ game.cashOnHand }}</div>
+	
+{{#game.outOfMoney}}
+	<p>You are a loser and out of money</p>
+	<p>Please visit one of our ATMs conveniently located in our lobby to get more money</p>
+{{/game.outOfMoney}}
+
+{{^game.outOfMoney}}
+<form method="post" action="/bet">
+	<input required autofocus type="number" name="bet">
+	<button>Place bet</button>
+</form>
+
+{{/game.outOfMoney}}		
+
+</body>
+</html>
