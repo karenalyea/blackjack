@@ -8,6 +8,7 @@
 
 <h1>Twenty-One</h1>
 
+{{#game.deckStillHasCards}}
 <h2>Dealer Hand</h2>
 
 
@@ -46,7 +47,7 @@
 	</form>
 		
 {{/game.showPlayerButtons}}
-
+ 
 {{^game.showPlayerButtons}}
 {{#game.outOfMoney}}
 	<p>You are a loser and out of money</p>
@@ -58,12 +59,17 @@
 	{{^game.showPlayerButtons}}
 			<form method="post" action="/bet">
 			<p>Enter new bet amount</p>
-			<input type="number" required name="bet">
+			<input type="number" max="{{ game.cashOnHand }}" required name="bet">
 			<button>Redeal</button>
 		</form>
 	{{/game.showPlayerButtons}}
 {{/game.outOfMoney}}
+{{/game.deckStillHasCards}}
 
+
+{{^game.deckStillHasCards}}
+<p>Sorry, we are out of cards. Game is over</p>
+{{/game.deckStillHasCards}}
 
 
 

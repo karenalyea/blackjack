@@ -15,7 +15,7 @@
 
 {{^game.outOfMoney}}
 <form method="post" action="/bet">
-	<input required autofocus type="number" name="bet">
+	<input required autofocus max="{{ game.cashOnHand }}" type="number" name="bet">
 	<button>Place bet</button>
 </form>
 

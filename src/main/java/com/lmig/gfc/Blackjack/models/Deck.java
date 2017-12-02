@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Deck {
-	
+
 	public boolean deckStillHasCards = true;
 
 	private ArrayList<Card> deckOfCards;
@@ -47,7 +47,6 @@ public class Deck {
 		shuffle();
 	}
 
-
 	public ArrayList<Card> getDeckOfCards() {
 		return deckOfCards;
 	}
@@ -58,18 +57,14 @@ public class Deck {
 
 	public int size() {
 		return deckOfCards.size();
-	
+
 	}
 
 	public Card draw() {
 		if (deckOfCards.size() == 0) {
-			Card card = null;
 			deckStillHasCards = false;
-			return card;
-			
 		}
 		Card card = deckOfCards.remove(0);
 		return card;
 	}
-
 }

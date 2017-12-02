@@ -44,37 +44,25 @@ public class Game {
 		
 		Card card = deck.draw();
 		playerHand.accept(card);
-		playerTotal = playerTotal + card.getValue();
-		if ((card.getFace() == "JACK") || (card.getFace() == "QUEEN") || (card.getFace() == "KING")) {
-			playerFaceCard = true;
-		}
+		playerTotal = playerHand.getTotal();
 
 		Card card2 = deck.draw();
 		dealerHand.accept(card2);
-		dealerTotal = dealerTotal + card2.getValue();
-		if ((card2.getFace() == "JACK") || (card2.getFace() == "QUEEN") || (card2.getFace() == "KING")) {
-			playerFaceCard = true;
-		}
-
+		dealerTotal = dealerHand.getTotal();
+		
 		Card card3 = deck.draw();
 		playerHand.accept(card3);
-		playerTotal = playerTotal + card3.getValue();
-		if ((card3.getFace() == "JACK") || (card3.getFace() == "QUEEN") || (card3.getFace() == "KING")) {
-			dealerFaceCard = true;
-		}
+		playerTotal = playerHand.getTotal();
 
 		Card card4 = deck.draw();
 		dealerHand.accept(card4);
-		dealerTotal = dealerTotal + card4.getValue();
-		if ((card4.getFace() == "JACK") || (card4.getFace() == "QUEEN") || (card4.getFace() == "KING")) {
-			dealerFaceCard = true;
-		}
+		dealerTotal = dealerHand.getTotal();
 
-		if ((dealerFaceCard = true) & (dealerTotal == blackjack)) {
+		if (dealerTotal == blackjack) {
 			dealerHasBlackjack = true;
 			gameOver = true;
 		}
-		if ((playerFaceCard = true) & (playerTotal == blackjack)) {
+		if (playerTotal == blackjack) {
 			playerHasBlackjack = true;
 			gameOver = true;
 		}
@@ -84,7 +72,7 @@ public class Game {
 	public void hitPlayer() {
 		Card card = deck.draw();
 		playerHand.accept(card);
-		playerTotal = playerTotal + card.getValue();
+		playerTotal = playerHand.getTotal();
 
 		if (playerTotal > blackjack) {
 			playerBust = true;
@@ -105,7 +93,7 @@ public class Game {
 		while (dealerTotal < dealerHits) {
 			Card card = deck.draw();
 			dealerHand.accept(card);
-			dealerTotal = dealerTotal + card.getValue();
+			dealerTotal = dealerHand.getTotal();
 			if (dealerTotal > blackjack) {
 				dealerBust = true;
 				gameOver = true;
@@ -113,9 +101,8 @@ public class Game {
 				dealerBust = false;
 			}
 		}
-
 	}
-
+ 
 	public boolean isPlayerBust() {
 		return playerBust;
 	}
@@ -125,11 +112,17 @@ public class Game {
 	}
 
 	public void calculatePayout() {
+		if (!deck.deckStillHasCards) {
+			gameOver = true;
+		}
 		ThisHandOver calculator = new ThisHandOver(playerBust, dealerBust, playerHasBlackjack, dealerHasBlackjack, playerTotal,
 				dealerTotal);
 		double winningAmount = calculator.figureItOut(currentBet);
 		cashOnHand = cashOnHand + winningAmount;
-			
+		if ((cashOnHand == 0.0) || (cashOnHand < 0)) {
+			gameOver = true;
+			outOfMoney = true;
+		}
 	}
 	
 	public boolean playerLost() {
@@ -142,9 +135,11 @@ public class Game {
 //			needNewBetAmount = true;
 //		}
 		cashOnHand = cashOnHand - bet;
-		if ((cashOnHand == 0.0) || (cashOnHand < 0)) {
-			gameOver = true;
-			outOfMoney = true;
-		}
+		
+	}
+
+
+	public boolean deckStillHasCards() {
+		return deck.deckStillHasCards;
 	}
 }
