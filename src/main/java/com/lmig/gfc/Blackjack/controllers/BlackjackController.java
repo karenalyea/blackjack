@@ -47,7 +47,7 @@ public class BlackjackController {
     
 		return mv; 
 	}  
-	 
+	  
 	@PostMapping("/hit")
 	public ModelAndView hitPlayer() {
 		try {

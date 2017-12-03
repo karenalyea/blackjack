@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF8">
 <title>Play Your Hand</title>
+<link rel="stylesheet" href="blackjack.css" />
 </head>
 <body>
 
@@ -11,6 +12,9 @@
 {{#game.deckStillHasCards}}
 <h2>Dealer Hand</h2>
 
+<!--  {{^game.showDealerCards}}
+<div> Dealer up card is {{ game.dealerUpValue }} of {{ game.dealerUpSuit }}</div>
+{{/game.showDealerCards}}-->
 
 {{#game.showDealerCards}}
 	{{#game.dealerHand.cards}}
@@ -58,9 +62,9 @@
 {{^game.outOfMoney}}
 	{{^game.showPlayerButtons}}
 			<form method="post" action="/bet">
-			<p>Enter new bet amount</p>
-			<input type="number" max="{{ game.cashOnHand }}" required name="bet">
-			<button>Redeal</button>
+			<h4>Would you like to play again? Enter a new bet amount and hit "Deal Again"</h4>
+				<input type="number" max="{{ game.cashOnHand }}" required name="bet">
+			<button>Deal Again</button>
 		</form>
 	{{/game.showPlayerButtons}}
 {{/game.outOfMoney}}

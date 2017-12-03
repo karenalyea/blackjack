@@ -3,11 +3,16 @@
 <head>
 <meta charset="UTF8">
 <title>Make Your Bet</title>
+<link rel="stylesheet" href="blackjack.css" />
 </head>
 <body>
 
-<div>You have ${{ game.cashOnHand }}</div>
-	
+<h1>Twenty-One</h1>
+
+<p>Welcome to the Blackjack table.  Please enter your bet amount below.</p>
+
+<div>You have ${{ game.cashOnHand }} in your account</div>
+<br>
 {{#game.outOfMoney}}
 	<p>You are a loser and out of money</p>
 	<p>Please visit one of our ATMs conveniently located in our lobby to get more money</p>
@@ -18,8 +23,54 @@
 	<input required autofocus max="{{ game.cashOnHand }}" type="number" name="bet">
 	<button>Place bet</button>
 </form>
+{{/game.outOfMoney}}	
 
-{{/game.outOfMoney}}		
+<br>
+<table>
+<thead>
+<tr> 
+<th>You Have </th>
+<th>Dealer Has </th>
+<th>Payout Amount </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Busted</td>
+<td>Anything</td>
+<td>Nothing and bet amount lost </td>
+</tr>
+<tr>
+<td>Blackjack</td>
+<td>Not Blackjack </td>
+<td>3 to 2</td>
+</tr>
+<tr>
+<td>Blackjack </td>
+<td>Blackjack </td>
+<td>You keep your bet </td>
+</tr>
+<tr>
+	<td>Less than or equal 21</td>
+	<td>Bust or less than you</td>
+	<td>2 to 1 payout</td>
+</tr>
+<tr>
+	<td>Less than dealer </td>
+	<td>Less than or equal 21 </td>
+	<td>Lose your bet </td>
+</tr>
+<tr>
+	<td>Same as dealer </td>
+	<td>Same as you </td>
+	<td>You keep your bet </td>
+</tr>
+</tbody>
+
+
+</table>
+	
+	
 
 </body>
 </html>

@@ -1,0 +1,47 @@
+@charset "UTF8";
+{
+	box-sizing: border-box;
+}
+
+h1 {
+	color: blue;
+	background-color: lightsalmon;
+	border: 2px black solid;
+	text-align: center;
+	width: 80%;
+	}
+	
+	h2 {
+	color: blue;
+	background-color: gray;
+	border: 2px black solid;
+	text-align: center;
+	width: 80%;}
+	
+	body {
+	background-color: lightsteelblue;
+	font-family: arial;
+}
+	
+	table {
+	border: 2px black solid;
+	border-collapse: collapse;
+	width: 80%;
+	padding: 0 5px;
+	margin: 5px;
+}
+
+
+tr  {
+	border: 2px black solid;
+}
+
+td {
+	border: 2px black solid;
+}
+
+th {
+	border: 2px black solid;
+	background-color: lightsalmon;
+	color: gray;
+}

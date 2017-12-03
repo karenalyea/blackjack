@@ -15,14 +15,15 @@ public class Game {
 	boolean dealerBust = false;
 	boolean showPlayerButtons = true;
 	boolean gameOver = false;
-	boolean dealerFaceCard = false;
-	boolean playerFaceCard = false;
+	
 	boolean dealerHasBlackjack = false;
 	boolean playerHasBlackjack = false;
 	boolean outOfMoney = false;
 	boolean needNewBetAmount = false;
 	private int currentBet;
 	boolean outOfCards = false;
+	public int dealerUpValue;
+	public Suits dealerUpSuit;
 
 	public void deal() {
 		playerHand = new Hand();
@@ -34,14 +35,9 @@ public class Game {
 		dealerBust = false;
 		showPlayerButtons = true;
 		gameOver = false;
-		dealerFaceCard = false;
-		playerFaceCard = false;
 		dealerHasBlackjack = false;
 		playerHasBlackjack = false;
-	
-		
-		
-		
+			
 		Card card = deck.draw();
 		playerHand.accept(card);
 		playerTotal = playerHand.getTotal();
@@ -49,10 +45,13 @@ public class Game {
 		Card card2 = deck.draw();
 		dealerHand.accept(card2);
 		dealerTotal = dealerHand.getTotal();
+		dealerUpValue = card.getValue();
+		dealerUpSuit = card.getSuit();
 		
 		Card card3 = deck.draw();
 		playerHand.accept(card3);
 		playerTotal = playerHand.getTotal();
+		
 
 		Card card4 = deck.draw();
 		dealerHand.accept(card4);
