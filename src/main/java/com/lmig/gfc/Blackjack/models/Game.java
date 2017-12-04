@@ -15,6 +15,7 @@ public class Game {
 	boolean dealerBust = false;
 	boolean showPlayerButtons = true;
 	boolean gameOver = false;
+	boolean showDealerCard = true;
 	
 	boolean dealerHasBlackjack = false;
 	boolean playerHasBlackjack = false;
@@ -37,26 +38,24 @@ public class Game {
 		gameOver = false;
 		dealerHasBlackjack = false;
 		playerHasBlackjack = false;
-			
+				
 		Card card = deck.draw();
 		playerHand.accept(card);
 		playerTotal = playerHand.getTotal();
-
+		
 		Card card2 = deck.draw();
 		dealerHand.accept(card2);
 		dealerTotal = dealerHand.getTotal();
-		dealerUpValue = card.getValue();
-		dealerUpSuit = card.getSuit();
-		
+		showDealerCard = true;
+				
 		Card card3 = deck.draw();
 		playerHand.accept(card3);
 		playerTotal = playerHand.getTotal();
 		
-
 		Card card4 = deck.draw();
 		dealerHand.accept(card4);
 		dealerTotal = dealerHand.getTotal();
-
+		
 		if (dealerTotal == blackjack) {
 			dealerHasBlackjack = true;
 			gameOver = true;
@@ -66,7 +65,26 @@ public class Game {
 			gameOver = true;
 		}
 	}
+	
 
+	public void ddown() {
+		//initial bet has already had bet taken out, so need to take
+		//out again to fulfill the double down
+		cashOnHand = cashOnHand - currentBet;
+		currentBet = currentBet * 2;
+		Card card = deck.draw();
+		playerHand.accept(card);
+		playerTotal = playerHand.getTotal();
+		showDealerCards = true;
+		showPlayerButtons = false;
+		gameOver = true;
+
+		if (playerTotal > blackjack) {
+			playerBust = true;
+		} else {
+			playerBust = false;
+		}
+	}
 
 	public void hitPlayer() {
 		Card card = deck.draw();
@@ -88,6 +106,7 @@ public class Game {
 
 	public void hitDealer() {
 		showPlayerButtons = false;
+		showDealerCard = false;
 		showDealerCards = true;
 		while (dealerTotal < dealerHits) {
 			Card card = deck.draw();
@@ -130,9 +149,6 @@ public class Game {
 
 	public void setCurrentBet(int bet) {
 		currentBet = bet;
-//		if (bet > cashOnHand) {
-//			needNewBetAmount = true;
-//		}
 		cashOnHand = cashOnHand - bet;
 		
 	}

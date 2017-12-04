@@ -12,48 +12,61 @@
 {{#game.deckStillHasCards}}
 <h2>Dealer Hand</h2>
 
-<!--  {{^game.showDealerCards}}
-<div> Dealer up card is {{ game.dealerUpValue }} of {{ game.dealerUpSuit }}</div>
-{{/game.showDealerCards}}-->
-
+<div id="dealer">
 {{#game.showDealerCards}}
 	{{#game.dealerHand.cards}}
 		<div>{{ face }} of {{ suit }}  </div>
 	{{/game.dealerHand.cards }}
+	<br>
+	<div id="dealer-tot">
 		<div>Dealer Total {{ game.dealerTotal }}</div>
+	</div>
 {{/game.showDealerCards}}
 
 {{#game.dealerBust}}
-	<h4>dealer BUST!</h4>
+	<h3>dealer BUST!</h3>
 {{/game.dealerBust}}
 
+</div>
+
+
 <h2>Player hand</h2>
+<div id="player">
 	
 {{#game.playerHand.cards}}
 	<div>{{ face }} of {{ suit }} </div>
 {{/game.playerHand.cards}}
-
+<br>
+<div id=player-tot>
 <div>Player Total {{ game.playerTotal }}</div>
-<div>You have ${{ game.cashOnHand }}</div>
+</div>
+
+<br>
+<div>Your bet is ${{ game.currentBet }} and you have ${{ game.cashOnHand }} left.</div>
 
 {{#game.playerBust}}
-	<h4>BUST! You Lose</h4>
+	<h3>BUST! You Lose</h3>
 {{/game.playerBust}}
 
 
 {{#game.showPlayerButtons}}
 
+<div>Do you want to double down?  If you choose yes, you will only get one more card.</div>
+	<form method="post" action="/ddown">
+		<button>Yes. Give me 1 card and double my bet.</button>
+	</form>
 	<form method="post" action="/hit">
-		<button>Hit me</button>
+		<button>No Double Down, just hit me</button>
 	</form>
 	<form method="post" action="/stand">
-		<button>Stand</button>
+		<button>No Double Down, I'll Stand</button>
 	</form>
 		
 {{/game.showPlayerButtons}}
  
 {{^game.showPlayerButtons}}
 {{#game.outOfMoney}}
+	<p>Dealer won</p>
 	<p>You are a loser and out of money</p>
 	<p>Please visit one of our ATMs conveniently located in our lobby to get more money</p>
 {{/game.outOfMoney}}
@@ -70,6 +83,7 @@
 {{/game.outOfMoney}}
 {{/game.deckStillHasCards}}
 
+</div>
 
 {{^game.deckStillHasCards}}
 <p>Sorry, we are out of cards. Game is over</p>

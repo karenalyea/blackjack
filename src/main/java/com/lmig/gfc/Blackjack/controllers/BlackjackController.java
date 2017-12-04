@@ -27,14 +27,15 @@ public class BlackjackController {
 	@PostMapping("/bet")
 	public ModelAndView handleBet(int bet) {
 		game.setCurrentBet(bet);
-		try {
+		try { 
 			game.deal();
 		} catch(Exception e) {}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/play");
 		return mv; 
-	}     
+	}       
  
+
 	@GetMapping("/play")
 	public ModelAndView dealCards() {
 		
@@ -47,7 +48,28 @@ public class BlackjackController {
     
 		return mv; 
 	}  
-	  
+	
+	@PostMapping("/ddown") 
+	public ModelAndView ddown() {
+		try {
+			game.ddown();
+		} catch(Exception e) {}
+		
+		if (game.isPlayerBust() || game.isGameOver()) {
+	
+			game.calculatePayout();
+		}
+		 
+		if (game.deckStillHasCards() == false) {
+			game.calculatePayout();
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("game", game);
+		mv.setViewName("redirect:/play");
+		return mv;
+	}
+	
+		  
 	@PostMapping("/hit")
 	public ModelAndView hitPlayer() {
 		try {

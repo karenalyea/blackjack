@@ -22,7 +22,7 @@ public class ThisHandOver {
 	public double figureItOut(int currentBet) {
 
 		if (playerBust) {
-			return 0;
+			currentBet = 0;			
 		}
 
 		if (dealerBust) {
