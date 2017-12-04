@@ -13,6 +13,12 @@
 <h2>Dealer Hand</h2>
 
 <div id="dealer">
+{{#game.showDealerCard}}
+{{^game.showDealerCards}}
+<div>{{ game.dealerHand.cards.0.face }} of {{ game.dealerHand.cards.0.suit }}  </div>
+{{/game.showDealerCards}}
+{{/game.showDealerCard}}
+
 {{#game.showDealerCards}}
 	{{#game.dealerHand.cards}}
 		<div>{{ face }} of {{ suit }}  </div>
@@ -33,12 +39,12 @@
 <h2>Player hand</h2>
 <div id="player">
 	
-{{#game.playerHand.cards}}
-	<div>{{ face }} of {{ suit }} </div>
-{{/game.playerHand.cards}}
-<br>
-<div id=player-tot>
-<div>Player Total {{ game.playerTotal }}</div>
+	{{#game.playerHand.cards}}
+		<div>{{ face }} of {{ suit }} </div>
+	{{/game.playerHand.cards}}
+	<br>
+	<div id=player-tot>
+	<div>Player Total {{ game.playerTotal }}</div>
 </div>
 
 <br>
@@ -51,7 +57,7 @@
 
 {{#game.showPlayerButtons}}
 
-<div>Do you want to double down?  If you choose yes, you will only get one more card.</div>
+	<div>Do you want to double down?  If you choose yes, you will only get one more card.</div>
 	<form method="post" action="/ddown">
 		<button>Yes. Give me 1 card and double my bet.</button>
 	</form>
